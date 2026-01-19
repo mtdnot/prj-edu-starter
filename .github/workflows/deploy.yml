@@ -1,0 +1,60 @@
+name: deploy-book
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          # NOTE: This template targets the Sphinx-based Jupyter Book v1 toolchain.
+          # If you want Jupyter Book v2 (MyST Markdown CLI), you'll need a different project structure.
+          python -m pip install "jupyter-book<2" pyyaml
+
+      - name: Build Jupyter Book
+        run: |
+          jupyter-book build .
+
+      - name: Build social feed (latest.json)
+        run: |
+          python tools/build_latest_json.py --out _build/html/social/latest.json
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _build/html
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

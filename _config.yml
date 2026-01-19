@@ -1,0 +1,37 @@
+# Jupyter Book configuration
+# Docs: https://jupyterbook.org/en/latest/customize/config.html
+
+title: "わかりやすい地震予知学"
+author: "prj-EDU"
+logo: ""
+
+# Force re-execution of notebooks on each build.
+execute:
+  execute_notebooks: "off"
+
+# Add a GitHub button in the top-right corner
+repository:
+  url: "https://github.com/<YOUR_GITHUB_USER>/<YOUR_REPO>"
+  path_to_book: "."
+  branch: "main"
+
+html:
+  use_repository_button: true
+  use_issues_button: true
+  use_edit_page_button: true
+  favicon: ""
+  google_analytics_id: ""  # optional
+
+# MyST markdown extensions (optional)
+parse:
+  myst_enable_extensions:
+    - colon_fence
+    - dollarmath
+    - linkify
+    - substitution
+
+sphinx:
+  config:
+    html_baseurl: "https://<YOUR_GITHUB_USER>.github.io/<YOUR_REPO>/"
+    language: "ja"
+    # If you add a custom domain later, update html_baseurl.
