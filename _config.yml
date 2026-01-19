@@ -11,7 +11,7 @@ execute:
 
 # Add a GitHub button in the top-right corner
 repository:
-  url: "https://github.com/<YOUR_GITHUB_USER>/<YOUR_REPO>"
+  url: "https://github.com/mtdnot/prj-edu-starter"
   path_to_book: "."
   branch: "main"
 
@@ -32,6 +32,6 @@ parse:
 
 sphinx:
   config:
-    html_baseurl: "https://<YOUR_GITHUB_USER>.github.io/<YOUR_REPO>/"
+    html_baseurl: "https://mtdnot.github.io/prj-edu-starter/"
     language: "ja"
     # If you add a custom domain later, update html_baseurl.
