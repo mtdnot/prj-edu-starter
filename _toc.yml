@@ -3,3 +3,4 @@ root: intro
 chapters:
   - file: content/00_overview
   - file: content/01_gnss_tec_intro
+  - file: content/02_gnss_3d_tec
